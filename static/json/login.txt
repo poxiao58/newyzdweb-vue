@@ -1,0 +1,1 @@
+{"code":200,"data":{"UserID":37,"User_Name":"超级管理员","User_LogName":"huayu","User_Password":"huayu888","User_Status":"1","lastLogon":"\/Date(1552455048943)\/","Add_User":null,"Add_Time":null,"Edit_User":"37","Edit_Time":"\/Date(1545614637000)\/","User_Type":"SA"}}

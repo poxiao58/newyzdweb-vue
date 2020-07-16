@@ -1,0 +1,40 @@
+@import '../../element-variables.scss';
+
+$--color-sub: #19b957;
+// $bg: $--color-primary;
+$dark_gray: #889aa4;
+$light_gray: #eee;
+$light_black: #555;
+
+//sidebar
+// $menuBg: $bg;
+// $subMenuBg:#1f2d3d;
+// $menuHover:#001528;
+
+@mixin clearfix {
+  &:after {
+    content: "";
+    display: table;
+    clear: both;
+  }
+}
+
+@mixin scrollBar {
+  &::-webkit-scrollbar-track-piece {
+    background: #d3dce6;
+  }
+  &::-webkit-scrollbar {
+    width: 6px;
+  }
+  &::-webkit-scrollbar-thumb {
+    background: #99a9bf;
+    border-radius: 20px;
+  }
+}
+
+@mixin relative {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+

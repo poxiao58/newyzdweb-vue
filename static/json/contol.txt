@@ -1,0 +1,116 @@
+{
+    "code": 200,
+    "total": 709,
+    "rows": [
+        {
+            "LogsID": 710,
+            "Logs_Date": "\/Date(1550472161903)\/",
+            "Control_Type": "展示区-远程开关",
+            "Control_Way": "手动关闭",
+            "Control_Man": "超级管理员(PcWeb)",
+            "Add_User": null,
+            "Add_Time": null,
+            "Edit_User": null,
+            "Edit_Time": null
+        },
+        {
+            "LogsID": 709,
+            "Logs_Date": "\/Date(1550472150063)\/",
+            "Control_Type": "展示区-1#风机",
+            "Control_Way": "手动关闭",
+            "Control_Man": "超级管理员(PcWeb)",
+            "Add_User": null,
+            "Add_Time": null,
+            "Edit_User": null,
+            "Edit_Time": null
+        },
+        {
+            "LogsID": 708,
+            "Logs_Date": "\/Date(1550472141967)\/",
+            "Control_Type": "展示区-1#风机",
+            "Control_Way": "手动打开",
+            "Control_Man": "超级管理员(PcWeb)",
+            "Add_User": null,
+            "Add_Time": null,
+            "Edit_User": null,
+            "Edit_Time": null
+        },
+        {
+            "LogsID": 707,
+            "Logs_Date": "\/Date(1550472137160)\/",
+            "Control_Type": "展示区-远程开关",
+            "Control_Way": "手动打开",
+            "Control_Man": "超级管理员(PcWeb)",
+            "Add_User": null,
+            "Add_Time": null,
+            "Edit_User": null,
+            "Edit_Time": null
+        },
+        {
+            "LogsID": 706,
+            "Logs_Date": "\/Date(1550472128237)\/",
+            "Control_Type": "展示区-1#风机",
+            "Control_Way": "手动关闭",
+            "Control_Man": "超级管理员(PcWeb)",
+            "Add_User": null,
+            "Add_Time": null,
+            "Edit_User": null,
+            "Edit_Time": null
+        },
+        {
+            "LogsID": 705,
+            "Logs_Date": "\/Date(1550472120627)\/",
+            "Control_Type": "展示区-1#风机",
+            "Control_Way": "手动打开",
+            "Control_Man": "超级管理员(PcWeb)",
+            "Add_User": null,
+            "Add_Time": null,
+            "Edit_User": null,
+            "Edit_Time": null
+        },
+        {
+            "LogsID": 704,
+            "Logs_Date": "\/Date(1550472113310)\/",
+            "Control_Type": "展示区-远程开关",
+            "Control_Way": "手动关闭",
+            "Control_Man": "超级管理员(PcWeb)",
+            "Add_User": null,
+            "Add_Time": null,
+            "Edit_User": null,
+            "Edit_Time": null
+        },
+        {
+            "LogsID": 703,
+            "Logs_Date": "\/Date(1550454176070)\/",
+            "Control_Type": "13区-13#环流风机",
+            "Control_Way": "手动关闭",
+            "Control_Man": "超级管理员(app)",
+            "Add_User": null,
+            "Add_Time": null,
+            "Edit_User": null,
+            "Edit_Time": null
+        },
+        {
+            "LogsID": 702,
+            "Logs_Date": "\/Date(1550454167553)\/",
+            "Control_Type": "13区-13#环流风机",
+            "Control_Way": "手动打开",
+            "Control_Man": "超级管理员(app)",
+            "Add_User": null,
+            "Add_Time": null,
+            "Edit_User": null,
+            "Edit_Time": null
+        },
+        {
+            "LogsID": 701,
+            "Logs_Date": "\/Date(1550454060613)\/",
+            "Control_Type": "16区-16#环流风机",
+            "Control_Way": "手动关闭",
+            "Control_Man": "超级管理员(app)",
+            "Add_User": null,
+            "Add_Time": null,
+            "Edit_User": null,
+            "Edit_Time": null
+        }
+    ]
+}
