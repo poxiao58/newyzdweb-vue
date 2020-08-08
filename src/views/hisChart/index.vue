@@ -1,24 +1,24 @@
 <template>
   <div class="app-container">
-    <div class="form-filter" v-show="false">
+    <div class="form-filter">
       <div class="chart-filter formClass">
         <drop-down class="float-l" :options="{list: videoList, cur: showAreaName}" @chooseFun="chooseQyCck"></drop-down>
         <el-date-picker v-show="false" class="float-r"
-                        v-model="dateRangerVal"
-                        type="daterange"
-                        align="right"
-                        unlink-panels
-                        range-separator="至"
-                        start-placeholder="开始日期"
-                        end-placeholder="结束日期"
-                        :picker-options="pickerOptions">
+          v-model="dateRangerVal"
+          type="daterange"
+          align="right"
+          unlink-panels
+          range-separator="至"
+          start-placeholder="开始日期"
+          end-placeholder="结束日期"
+          :picker-options="pickerOptions">
         </el-date-picker>
       </div>
     </div>
     <div class="list-tabs-show chart-tabs-show">
-      <el-tabs v-model="activeName" type="card">
-        <el-tab-pane :lazy="true">
-          <pie-chart :chartOption="chartOption" :chartData="chartData" v-loading="chartLoading"></pie-chart>
+      <el-tabs v-model="activeName" type="card" >
+        <el-tab-pane :lazy="true" >
+          <line-chart :chartOption="chartOption" :chartData="chartData" v-loading="chartLoading"></line-chart>
         </el-tab-pane>
       </el-tabs>
     </div>
@@ -26,7 +26,7 @@
 </template>
 
 <script>
-  import pieChart from '@/components/PieChart'
+  import lineChart from '@/components/LineChart'
   import dropDown from '@/components/DropDown'
 
   export default {
@@ -35,7 +35,7 @@
         activeName: '',
         userAreaId: '',
         showAreaName: '选择',
-        cip: '',
+        cip:'',
         pickerOptions: {
           shortcuts: [{
             text: '今天',
@@ -74,8 +74,8 @@
         dateRangerVal: '',
         tabList: [],
         chartOption: {
-          tit: '前一天设备打印图片',
-          unit: '张'
+          tit: '',
+          unit: ''
         },
         chartData: {},
         videoList: [],
@@ -83,7 +83,7 @@
       }
     },
     components: {
-      pieChart,
+      lineChart,
       dropDown
     },
     computed: {
@@ -92,32 +92,64 @@
       }
     },
     created() {
-      this.queryInfoList()
+      this.queryUserEsnList()
     },
     methods: {
       queryInfoList() {
         var that = this
         that.chartLoading = true
         that.chartData = {}
-        this.$http.post('/esn/getPreEsnPrintImageList', {}, function (res) {
+        this.$http.post('/esn/getHisEsnPrintImageListByEsnName', {
+          id: that.showAreaName,
+        }, function(res) {
           var $data = res.data
-          console.log("得到数据信息：", $data)
+          console.log("得到数据信息：",$data)
           if ($data.length > 0) {
             var allData = {
               xData: [],
               zData: []
             }
-            for (let i = 0; i < $data.length; i++) {
-              allData.xData.push($data[i].name)
+            for (let i = $data.length-1; i >=0; i--) {
+              allData.xData.push($data[i].updateTime)
               allData.zData.push($data[i].count_)
             }
             that.chartData = allData
-            console.log("得到chartData数据信息：", that.chartData)
+            console.log("得到chartData数据信息：",that.chartData)
           } else {
             that.chartData = {}
           }
         })
       },
+      queryUserEsnList() {
+        var that = this;
+        this.$http.post('/esn/getEsnList', {
+        }, function (res) {
+          const obj = res.data
+          if (obj.length != 0) {
+            that.videoList = obj
+            that.chooseQyCck(obj[0])
+          }
+        })
+      },
+      chooseQyCck(val) {
+        this.showAreaName = val.name
+        this.chartOption.tit=val.name
+        this.chartOption.unit='张'
+        console.log("当前设备名称："+this.showAreaName )
+        this.queryInfoList()
+      },
+      esnTabClk() {
+        this.findActiveInfo()
+      },
+      findActiveInfo() {
+        var activeIndex = this.tabList.find(item => {
+          return item.ip === this.activeName
+        })
+        this.chartOption.tit = activeIndex.cgData
+        this.chartOption.unit = activeIndex.unit
+        this.cip=activeIndex.cip
+        this.queryInfoList()
+      }
     }
   }
 </script>

@@ -58,7 +58,7 @@
               tit: '设备IMEI号'
             },
             {
-              prop: 'address',
+              prop: 'city',
               tit: '设备位置'
             },
             {
@@ -71,12 +71,28 @@
               tit: '信号强度'
             },
             {
-              prop: 'url',
-              tit: '固件地址'
+              prop: 'iccid',
+              tit: '物联网卡号'
             },
             {
-              prop: 'md',
-              tit: 'MD5'
+              prop: 'dataPlan',
+              tit: '套餐大小(M)'
+            },
+            {
+              prop: 'dataUsage',
+              tit: '当月用量(M)'
+            },
+            {
+              prop: 'dataBalance',
+              tit: '剩余流量(M)'
+            },
+            {
+              prop: 'expiryDate',
+              tit: '计费结束日期'
+            },
+            {
+              prop: 'printNum',
+              tit: '打印次数'
             },
             {
               prop: 'nowVersion',

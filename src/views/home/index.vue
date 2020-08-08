@@ -6,15 +6,15 @@
           <ul>
             <li>
               <div class="n-dataimg img4" title="点击设置为已读" @click="readingSetting"></div>
-              <div class="n-datanum">新增任务<span>{{num}}</span></div>
+              <div class="n-datanum">上线数量<span>{{num}}</span></div>
             </li>
             <li>
               <div class="n-dataimg img3"></div>
-              <div class="n-datanum">总待处理<span>{{count}}</span></div>
+              <div class="n-datanum">打印数量<span>{{count}}</span></div>
             </li>
             <li>
               <div class="n-dataimg img2" title="点击设置状态" @click="statusSetting"></div>
-              <div class="n-datanum">当前状态<span>{{status}}</span></div>
+              <div class="n-datanum">转化率<span>{{rate}}</span></div>
             </li>
 
             <!--<li>-->
@@ -23,20 +23,28 @@
             <!--</li>-->
           </ul>
         </div>
+        <!-- 地图展示-->
         <!--<audio id="audio" src="/static/mp3/ts.mp3" controls style="height: inherit;"/>-->
-        <audio id="audio" src="http://www.zzfset.com/yzd/fileImg/mp3/ts.mp3" controls autoplay style="height: inherit;" />
+        <audio id="audio" v-if="false" src="http://www.zzfset.com/yzd/fileImg/mp3/ts.mp3" controls
+               style="height: inherit;"/>
       </div>
+    </div>
+    <div class="roseRight">
+      <rose-chart/>
     </div>
   </div>
 </template>
 
 <script>
+  import RoseChart from "./RoseChart";
+
   export default {
+    components: {RoseChart},
     data() {
       return {
         num: 0,
         count: 0,
-        status: "上班"
+        rate: 0
       };
     },
     created() {
@@ -50,28 +58,41 @@
     },
     methods: {
       setTimer() {
-        this.timer = setInterval( () => {
+        this.timer = setInterval(() => {
           console.log('首页定时器')
           this.queryInfoList(true)
         }, 10000)
 
       },
+      // queryInfoList() {
+      //   var that = this
+      //   this.$http.post('/imageManager/newTaskByMsg', {}, function (res) {
+      //     const obj = res.data
+      //     that.num = obj.num
+      //     that.count = obj.count
+      //     if (obj.status == "3") {
+      //       that.status = "下班"
+      //     } else {
+      //       that.status = "上班"
+      //     }
+      //     if (that.num != 0) {
+      //       const audio = document.getElementById('audio')
+      //       audio.play()
+      //     }
+      //
+      //   })
+      // },
+      //获取左侧信息
       queryInfoList() {
         var that = this
-        this.$http.post('/imageManager/newTaskByMsg', {}, function (res) {
+        this.$http.post('/esn/getHomeIndexList', {}, function (res) {
           const obj = res.data
-          that.num = obj.num
-          that.count = obj.count
-          if (obj.status=="3"){
-            that.status="下班"
-          } else{
-            that.status="上班"
-          }
-          if (that.num!=0){
-            const audio = document.getElementById('audio')
-            audio.play()
-          }
-
+          //前一日设备数
+          that.num = obj.esnNum
+          //前一日打印图片数量
+          that.count = obj.prePrintNum
+          //前一日转化率
+          that.rate = obj.rate
         })
       },
       readingSetting() {
@@ -111,6 +132,7 @@
 <style rel="stylesheet/scss" lang="scss">
   .article-left {
     position: fixed;
+
     .n-datas {
       margin-top: 0.875rem;
       width: 3.3rem;
@@ -118,39 +140,49 @@
       border-radius: 0.125rem;
       margin-left: 0.9rem;
       border: 1px solid $--color-primary;
+
       .n-datamodel {
         width: 2.95rem;
         height: 13.675rem;
         border-radius: 0.125rem;
         margin: 0.175rem auto;
         background: rgba(255, 255, 255, 0.3);
+
         ul {
           padding-top: 0.35rem;
+
           li {
             cursor: pointer;
             list-style: none;
             margin-top: 0.375rem;
+
             &:first-child {
               margin-top: 0;
             }
+
             .n-dataimg {
               margin: 0 auto;
               width: 1.5rem;
               height: 1.5rem;
               background-size: 100%;
+
               &.img4 {
                 background-image: url("/yzd/static/img/data-1.png");
               }
+
               &.img3 {
                 background-image: url("/yzd/static/img/data-3.png");
               }
+
               &.img2 {
                 background-image: url("/yzd/static/img/data-2.png");
               }
+
               &.img1 {
                 background-image: url("/yzd/static/img/data-1.png");
               }
             }
+
             .n-datanum {
               margin: 0.55rem auto 0;
               width: 2.55rem;
@@ -161,6 +193,7 @@
               text-align: center;
               position: relative;
               font-size: 0.4rem;
+
               span {
                 position: absolute;
                 font-size: 0.55rem;
@@ -170,16 +203,17 @@
                 font-weight: bold;
               }
             }
+
             /*&:hover {*/
-              /*.img3 {*/
-                /*background-image: url("/yzd/static/img/data-33.gif");*/
-              /*}*/
-              /*.img2 {*/
-                /*background-image: url("/yzd/static/img/data-22.gif");*/
-              /*}*/
-              /*.img1 {*/
-                /*background-image: url("/yzd/static/img/data-11.gif");*/
-              /*}*/
+            /*.img3 {*/
+            /*background-image: url("/yzd/static/img/data-33.gif");*/
+            /*}*/
+            /*.img2 {*/
+            /*background-image: url("/yzd/static/img/data-22.gif");*/
+            /*}*/
+            /*.img1 {*/
+            /*background-image: url("/yzd/static/img/data-11.gif");*/
+            /*}*/
             /*}*/
           }
         }
@@ -195,25 +229,31 @@
     right: 0.5rem;
     top: 0.5rem;
     box-sizing: border-box;
+
     .map-con {
       width: 100%;
       height: 100%;
     }
+
     .el-carousel {
       width: 100%;
       height: 100%;
       overflow: hidden;
       box-sizing: border-box;
+
       .el-carousel__container {
         width: 100%;
         height: 90%;
+
         .el-carousel__item {
           border: 1px solid $--color-primary;
           padding: 0.25rem;
         }
       }
+
       .el-carousel__indicator {
         height: 10%;
+
         .el-carousel__button {
           width: 0.5rem;
           height: 0.5rem;
@@ -230,6 +270,7 @@
     right: 10px;
     top: 50%;
     transform: translate(-50%);
+
     .n_icon {
       .n-i {
         .el-button {
@@ -238,6 +279,7 @@
           border: none;
           line-height: 0;
         }
+
         .svg-icon {
           margin-bottom: 0.5rem;
           background: rgba(0, 0, 0, .4);
@@ -249,6 +291,7 @@
           height: 1.5rem;
           font-weight: bold;
           cursor: pointer;
+
           &:hover {
             background: $--color-primary;
             color: #fff;
@@ -278,15 +321,18 @@
         position: absolute;
         cursor: pointer;
         z-index: 1000;
+
         .fieldnum {
           background: url('/yzd/static/img/farm-icon.png') 0 0 no-repeat;
           background-size: 100%;
           height: 100%;
           position: relative;
+
           &.el-button {
             border: none;
             line-height: 0;
           }
+
           em {
             font-style: normal;
             color: $--color-primary;
@@ -298,6 +344,7 @@
             position: absolute;
           }
         }
+
         .n-numtxt {
           height: .85rem;
           position: absolute;
@@ -325,6 +372,7 @@
           cursor: pointer;
         }
       }
+
       .swiper-button-prev, .swiper-button-next {
         background: none;
         width: auto;
@@ -337,6 +385,7 @@
         background: $--color-sub;
         box-sizing: border-box;
         z-index: 100;
+
         .svg-icon {
           width: 0.6rem;
           height: 0.6rem;
@@ -344,18 +393,24 @@
           cursor: pointer;
         }
       }
+
       .swiper-button-prev {
         left: 0.05rem;
       }
+
       .swiper-button-next {
         right: 0.05rem;
       }
     }
+
     .n-video-show {
       height: 200px;
     }
   }
-
+.roseRight{
+  margin-left: 20%;
+  height: 500px;
+}
   .fog__img--first {
     -webkit-animation: marqueeOut 3s ease-in 1 forwards;
     animation: marqueeOut 3s ease-in 1 forwards;

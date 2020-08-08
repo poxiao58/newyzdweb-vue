@@ -122,6 +122,30 @@ export const constantRouterMap = [
     component: Layout,
     children: [
       {
+        path: '/dataShow',
+        name: 'dataShow',
+        meta: { title: '数据统计', requireAuth: true },
+        component: resolve => require(['@/views/chart/index'], resolve)
+      }
+    ]
+  },
+  {
+    path: '',
+    component: Layout,
+    children: [
+      {
+        path: '/hisDataShow',
+        name: 'hisDataShow',
+        meta: { title: '历史数据', requireAuth: true },
+        component: resolve => require(['@/views/hisChart/index'], resolve)
+      }
+    ]
+  },
+  {
+    path: '',
+    component: Layout,
+    children: [
+      {
         path: '/user',
         name: 'user',
         meta: { title: '用户管理', requireAuth: true },

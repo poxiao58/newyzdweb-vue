@@ -78,45 +78,26 @@ export default {
           textAlign: 'center',
           left: 'center'
         },
+        dataZoom: [{
+          type: 'slider',
+          show: true, //flase直接隐藏图形
+          xAxisIndex: [0],
+          left: '9%', //滚动条靠左侧的百分比
+          bottom: -5,
+          // start: 0,//滚动条的起始位置
+          // end: 50 //滚动条的截止位置（按比例分割你的柱状图x轴长度）
+        }],
         xAxis: {
-          boundaryGap: false,
-          data: datastr.xData,
-          axisLabel: {
-            interval: 0,
-            rotate: -30,
-            fontSize: '96%'
-          },
-          splitLine: {
-            show: true,
-            lineStyle: {
-              color: [mainColor],
-              width: 1,
-              type: 'solid'
-            }
-          }
+          type: 'category',
+          data:  datastr.xData,
         },
         yAxis: {
-          type: 'value',
-          name: '单位(' + options.unit + ')',
-          axisLabel: {
-            fontSize: '100%'
-          },
-          nameTextStyle: {
-            fontSize: '100%'
-          }
+          type: 'value'
         },
-        series: [
-          {
-            type: 'line',
-            name: options.tit + '(' + options.unit + ')',
-            data: datastr.zData,
-            label: {
-              show: true,
-              fontSize: '100%',
-              formatter: '{c}'+ options.unit
-            }
-          }
-        ],
+        series: [{
+          data:  datastr.zData,
+          type: 'bar'
+        }],
         toolbox: {
           show: true,
           feature: {

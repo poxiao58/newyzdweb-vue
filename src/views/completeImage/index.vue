@@ -198,7 +198,7 @@
         var that = this
         if(!ds)
         that.tableLoading = true
-        var whereObj={}
+        var whereObj={status:6}
         // var whereObj={'userId': that.UID}
         if(this.formObjectFirst.model.name!=''){
           whereObj.name=this.formObjectFirst.model.name
@@ -249,9 +249,9 @@
               // obj[i].bmpImg="/yzd/fileImg/BMP/"+obj[i].imei+"/"+obj[i].time+"/"+nameArr[0]+".bmp"
               obj[i].bmpImg="https://zzfset.oss-cn-beijing.aliyuncs.com/yzd/bmp/"+nameArr[0]+".bmp"
             }
-            if(obj[i].status=='3'||obj[i].status=='4'||obj[i].status=='5'){
+            // if(obj[i].status=='6'){
               obj1.push(obj[i])
-            }
+            // }
           }
           that.tableObjectFirst.data = obj1
           that.tableObjectFirst.total = res.data.sumcount

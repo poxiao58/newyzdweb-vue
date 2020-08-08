@@ -1,7 +1,7 @@
 <template>
   <div class="app-container">
     <div class="form-filter">
-      <filter-form v-show="activeName==='1'" :formObject="formObjectFirst" @search="search" @addOpenDialogFun="addOpenDialogFun" ></filter-form>
+      <filter-form v-show="activeName==='1'" :formObject="formObjectFirst" v-m @search="search" @addOpenDialogFun="addOpenDialogFun" ></filter-form>
     </div>
     <div class="list-tabs-show">
       <el-tabs v-model="activeName" type="card">
@@ -236,7 +236,8 @@
               obj[i].pictureTypeName='竖版'
             }
             obj[i].showImg="/yzd/fileImg/original/"+obj[i].imei+"/"+obj[i].time+"/"+obj[i].name
-            if(obj[i].status=='0'||obj[i].status=='1'){
+            //非已打印完成状态
+            if(obj[i].status!=='6'){
               obj[i].bmpImg=''
             }else {
               let nameArr=obj[i].name.split(".");

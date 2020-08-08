@@ -13,7 +13,10 @@
     "axios": "^0.17.1",
     "echarts": "^4.1.0",
     "element-ui": "^2.4.11",
+    "less": "^3.9.0",
+    "less-loader": "^5.0.0",
     "vue": "^2.5.10",
+    "vue-baidu-map": "^0.21.22",
     "vue-router": "^3.0.1",
     "vuex": "^3.0.1"
   },
