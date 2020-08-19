@@ -18,11 +18,13 @@
         :className="item.active"
       >
         <template slot-scope="scope">
-          <div v-if="scope.row[item.prop]">
+          <div v-if="scope.row[item.prop]||item.prop==='weChat'">
             <!--<img style="width: 50px;height: 50px;" v-if="item.type=='img'&&item.prop=='showImg'" :src="scope.row[item.prop]"/>-->
             <!--<img style="width: 50px;height: 50px;" v-else-if="item.type=='img'&&item.prop=='bmpImg'&&scope.row['status']!='0'&&scope.row['status']!='1'" :src="scope.row[item.prop]"/>-->
            <!--<a v-if="item.prop=='showImg'||item.prop=='bmpImg'" href="JavaScript:void(0);">详情</a>-->
-            <el-button type="text" v-if="item.prop=='showImg'" style="color: #2a97fe" @click="$emit(item.event, scope.row,item.prop)"  >详情</el-button>
+            <el-button type="text" v-if="item.prop==='weChat'" style="color: #2a97fe" @click="$emit(item.event, scope.row,item.prop)"  >详情</el-button>
+            <el-button type="text" v-else-if="item.prop=='showImg'" style="color: #2a97fe" @click="$emit(item.event, scope.row,item.prop)"  >详情</el-button>
+<!--            <el-button type="text" v-else-if="item.prop=='weChat'" style="color: #2a97fe" @click="$emit(item.event, scope.row,item.prop)"  >详情</el-button>-->
             <el-button type="text" v-else-if="item.prop=='bmpImg'&&scope.row['status']!='0'&&scope.row['status']!='1'" style="color: #2a97fe" @click="$emit(item.event, scope.row,item.prop)"  >详情</el-button>
             <span v-else-if="item.color&&scope.row['status']=='0'" style="color: red" > {{scope.row[item.prop]}}</span>
             <span v-else-if="item.color&&scope.row['status']!='0'&&scope.row['status']!='5'" style="color: yellow" > {{scope.row[item.prop]}}</span>

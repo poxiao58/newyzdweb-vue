@@ -2,7 +2,7 @@
   <div class="app-wrapper">
     <TopNavbar></TopNavbar>
     <app-main></app-main>
-    <Copyright></Copyright>
+<!--    <Copyright></Copyright>-->
   </div>
 </template>
 

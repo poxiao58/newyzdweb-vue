@@ -46,7 +46,7 @@
           data: [],
           pageNo: 1,
           total: 0,
-          pageSize: 50,
+          pageSize: 10,
           arr: [
             {
               prop: 'imei',
@@ -216,7 +216,7 @@
         this.$http.post('/imageManager/getImageList', {
           where: whereObj,
           sortField:'createTime',
-          orderBy:'asc',
+          orderBy:'desc',
           curpage: that.tableObjectFirst.pageNo,
           pagesize: that.tableObjectFirst.pageSize
         }, function(res) {

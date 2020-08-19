@@ -15,6 +15,7 @@
                          @stopFun="stopFunClk"
                          @refreshFun="refreshFunClk"
                          @binUploadFun="binUploadFun"
+                         @showImgFun="showImgFun"
                          @editOpenDialogFun="editOpenDialogFun"></complex-table>
         </el-tab-pane>
       </el-tabs>
@@ -23,6 +24,7 @@
     <update-device ref="openUserEsnUpdateDialog"></update-device>
     <upload-bin-dialog ref="openBinDialog"></upload-bin-dialog>
     <check-dialog ref="checkDialog"></check-dialog>
+    <show-image ref="openShowImageDialog"></show-image>
 
   </div>
 </template>
@@ -35,6 +37,7 @@
   import updateDevice from './updateDevice'
   import checkDialog from "./checkDialog"
   import uploadBinDialog from "./uploadBinDialog";
+  import showImage  from './showImage'
 
   export default {
     data() {
@@ -101,6 +104,11 @@
             {
               prop: 'binDescription',
               tit: '固件备注'
+            },
+            {
+              prop: 'weChat',
+              tit: '设备二维码',
+              event:'showImgFun'
             },
             {
               prop: 'updateTime',
@@ -186,7 +194,8 @@
       addDevice,
       updateDevice,
       checkDialog,
-      uploadBinDialog
+      uploadBinDialog,
+      showImage
     },
     computed: {
       UID() {
@@ -219,6 +228,9 @@
         }, 3000)
 
       },
+      // showImgFun(val,type){//显示图片
+      //   this.$refs.openShowImageDialog.openDiag(val[type])
+      // },
       queryInfoList(ds) {
         var that = this
         if (!ds)
@@ -239,6 +251,7 @@
           that.tableLoading = false
           const obj = res.data.rows
           for(let i = 0; i < obj.length; ++i) {
+            obj[i].showImg=obj[i].weChat
             if(obj[i].status=='0'){
               obj[i].status='空闲'
             }else if(obj[i].status=='1'){
@@ -254,12 +267,25 @@
             }
           }
           that.tableObjectFirst.data = obj
+          console.log("获取列表：",obj)
           that.tableObjectFirst.total = res.data.sumcount
 
         })
       },
       search(){
         this.resetInfo()
+      },
+      showImgFun(val){
+        var that=this
+        that.tableLoading = true
+        this.$http.post('/esn/getWeChatById', {
+          id: val.id
+        }, function(res) {
+          that.tableLoading = false
+          if (res.success) {
+            that.$refs.openShowImageDialog.openDiag(res.msg)
+          }
+        })
       },
       deleteFun(val){
         var that=this
